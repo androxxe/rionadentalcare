@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // $config['base_url'] = 'http://192.168.100.62/edunesia';
 // ~ $config['base_url'] = 'http://localhost/tondi';
 // $config['base_url'] = 'https://rionadentalcare.tondiputra.com/';
-$config['base_url'] = 'http://localhost/rionadentalcare';
+$config['base_url'] = 'http://localhost:81/rionadentalcare';
 
 /*
 |--------------------------------------------------------------------------
@@ -526,13 +526,15 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 require 'application/libraries/FirexGanteng.php';
-function enkripsi($data){
+function enkripsi($data)
+{
 	$firex 		= new FirexGanteng();
 	$gendeng 	= $firex->enkrip($data);
 	return $gendeng;
 }
 
-function dekripsi($data){
+function dekripsi($data)
+{
 	$firex 		= new FirexGanteng();
 	$gendeng 	= $firex->dekrip($data);
 	return $gendeng;
@@ -541,27 +543,27 @@ function dekripsi($data){
 function rupiah($angka)
 {
 
-    $hasil_rupiah = "Rp. " . number_format($angka, 2, ',', '.');
-    return $hasil_rupiah;
+	$hasil_rupiah = "Rp. " . number_format($angka, 2, ',', '.');
+	return $hasil_rupiah;
 }
 
 function angka($rupiah)
 {
-    $pattern = '/([^0-9]+)/';
-    $angka_final = preg_replace($pattern, '', $rupiah);
-    return $angka_final;
+	$pattern = '/([^0-9]+)/';
+	$angka_final = preg_replace($pattern, '', $rupiah);
+	return $angka_final;
 }
 
 function umur($tgl)
 {
-    $tglb = $tgl;
+	$tglb = $tgl;
 
-    $tglbe = new DateTime($tglb);
-    $today = new DateTime();
+	$tglbe = new DateTime($tglb);
+	$today = new DateTime();
 
-    $diff = $today->diff($tglbe);
-    $umur = $diff->y;
-    return $umur;
+	$diff = $today->diff($tglbe);
+	$umur = $diff->y;
+	return $umur;
 }
 
 
@@ -569,47 +571,48 @@ function umur($tgl)
 function tgl_ind($date)
 {
 
-    // array hari dan bulan
-    $Hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
-    $Bulan = array(
-        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-    );
+	// array hari dan bulan
+	$Hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+	$Bulan = array(
+		"Januari", "Februari", "Maret", "April", "Mei", "Juni",
+		"Juli", "Agustus", "September", "Oktober", "November", "Desember"
+	);
 
-    // pemisahan tahun, bulan, hari, dan waktu
-    $tahun = substr($date, 0, 4);
-    $bulan = substr($date, 5, 2);
-    $tgl = substr($date, 8, 2);
-    $waktu = substr($date, 11, 5);
-    $hari = date("w", strtotime($date));
-    $result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu . " " . "Wib";
-    return $result;
+	// pemisahan tahun, bulan, hari, dan waktu
+	$tahun = substr($date, 0, 4);
+	$bulan = substr($date, 5, 2);
+	$tgl = substr($date, 8, 2);
+	$waktu = substr($date, 11, 5);
+	$hari = date("w", strtotime($date));
+	$result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu . " " . "Wib";
+	return $result;
 }
 function tgl_indo($date)
 {
 
-    // array hari dan bulan
-    $Hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
-    $Bulan = array(
-        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-    );
+	// array hari dan bulan
+	$Hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+	$Bulan = array(
+		"Januari", "Februari", "Maret", "April", "Mei", "Juni",
+		"Juli", "Agustus", "September", "Oktober", "November", "Desember"
+	);
 
-    // pemisahan tahun, bulan, hari, dan waktu
-    $tahun = substr($date, 0, 4);
-    $bulan = substr($date, 5, 2);
-    $tgl = substr($date, 8, 2);
-    $waktu = substr($date, 11, 5);
-    $hari = date("w", strtotime($date));
-    $result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu . " ";
-    return $result;
+	// pemisahan tahun, bulan, hari, dan waktu
+	$tahun = substr($date, 0, 4);
+	$bulan = substr($date, 5, 2);
+	$tgl = substr($date, 8, 2);
+	$waktu = substr($date, 11, 5);
+	$hari = date("w", strtotime($date));
+	$result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu . " ";
+	return $result;
 }
 
 
 
-function antixss($data){
+function antixss($data)
+{
 	// Fix &entity\n;
-	$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
+	$data = str_replace(array('&amp;', '&lt;', '&gt;'), array('&amp;amp;', '&amp;lt;', '&amp;gt;'), $data);
 	$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
 	$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
 	$data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
@@ -630,25 +633,24 @@ function antixss($data){
 	// Remove namespaced elements (we do not need them)
 	$data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
 
-	do
-	{
+	do {
 		// Remove really unwanted tags
 		$old_data = $data;
 		$data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
-	}
-	while ($old_data !== $data);
+	} while ($old_data !== $data);
 
 	// we are done...
 	return $data;
 }
 
-function tanggal($data){
+function tanggal($data)
+{
 	date_default_timezone_set('Asia/Jakarta');
-	if($data == "tgl"){
+	if ($data == "tgl") {
 		$gendeng	= date("Y-m-d");
-	}else if($data == "tgljam"){
+	} else if ($data == "tgljam") {
 		$gendeng	= date("Y-m-d H:i:s");
-	}else if($data == "jam"){
+	} else if ($data == "jam") {
 		$gendeng	= date("H:i:s");
 	}
 	return $gendeng;
@@ -681,7 +683,8 @@ function tgl_indo2($tunggulin, $jenis = "")
 
 
 
-function sambutan($data){
+function sambutan($data)
+{
 	date_default_timezone_set("Asia/Jakarta");
 	$b 		= time();
 	$hour 	= date("G", $b);
@@ -704,52 +707,44 @@ function sambutan($data){
 	} else if ($hour >= 20 && $hour <= 23) {
 		$pesanane	= "Selamat malam";
 	}
-	return $pesanane." dan selamat datang kembali <b>".$data."</b>";
+	return $pesanane . " dan selamat datang kembali <b>" . $data . "</b>";
 }
 
 
-function pushPesan($title, $message, $empid, $tanggal){
-      // Your code here!
+function pushPesan($title, $message, $empid, $tanggal)
+{
+	// Your code here!
 
 
 
 
 
-$fields = array(
-        'app_id' => 'ddb9ef15-34c0-4d02-ac37-cae303c059c2',
-        'include_player_ids' => [$empid],
-        'contents' => array("en" =>$message),
-        'headings' => array("en"=>$title),
-        'largeIcon' => 'https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png',
-        'send_after' => $tanggal.':00 GMT+0700'
-    );
-    
-    $fields = json_encode($fields);
-    //print("\nJSON sent:\n");
-    //print($fields);
+	$fields = array(
+		'app_id' => 'ddb9ef15-34c0-4d02-ac37-cae303c059c2',
+		'include_player_ids' => [$empid],
+		'contents' => array("en" => $message),
+		'headings' => array("en" => $title),
+		'largeIcon' => 'https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png',
+		'send_after' => $tanggal . ':00 GMT+0700'
+	);
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json; charset=utf-8', 
-        'Authorization: Basic YmRmOTVjOGUtZGUzMS00NzMyLTg5Y2EtNzA1NjU0NTI2YWUz'
-    ));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_HEADER, FALSE);
-    curl_setopt($ch, CURLOPT_POST, TRUE);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                                           
-    $response = curl_exec($ch);
-    curl_close($ch);
-    //print_r($response);
+	$fields = json_encode($fields);
+	//print("\nJSON sent:\n");
+	//print($fields);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Content-Type: application/json; charset=utf-8',
+		'Authorization: Basic YmRmOTVjOGUtZGUzMS00NzMyLTg5Y2EtNzA1NjU0NTI2YWUz'
+	));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_HEADER, FALSE);
+	curl_setopt($ch, CURLOPT_POST, TRUE);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+	$response = curl_exec($ch);
+	curl_close($ch);
+	//print_r($response);
 }
-
-
-
-
-
-
-
-
-
